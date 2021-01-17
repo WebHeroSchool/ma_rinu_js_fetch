@@ -1,8 +1,16 @@
 let body = document.body;
 let string = window.location.search;
-let url = 'https://api.github.com/users/MarinaMix';
 
-fetch(url)
+const getNameFromUrl = (url) => {
+  let getUrl = url.split('=');
+  let name = getUrl[1]; //
+  if(name == undefined) {
+  name = 'MarinaMix';
+  }
+return name;
+}
+
+fetch(`https://api.github.com/users/${getNameFromUrl(url)}`)
     .then(res => res.json())
     .then(json => {
         console.log(json.avatar_url);
