@@ -1,5 +1,5 @@
 let body = document.body;
-let string = window.location.search;
+let url = window.location.search;
 
 const getNameFromUrl = (url) => {
   let getUrl = url.split('=');
@@ -13,12 +13,8 @@ return name;
 fetch(`https://api.github.com/users/${getNameFromUrl(url)}`)
     .then(res => res.json())
     .then(json => {
-        console.log(json.avatar_url);
-        console.log(json.name);
-        console.log(json.bio);
-        console.log(json.html_url);
 
-        let photo = new Image();
+        let photo = document.createElement('img');
         photo.src = json.avatar_url;
         body.append(photo);
 
