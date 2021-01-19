@@ -1,16 +1,28 @@
-let body = document.body;
-let url = window.location.search;
+window.setTimeout(function () {
+  let body = document.body;
+  let url = window.location.search;
+  document.body.classList.add('loaded');
+  const date = new Date();
 
-const getNameFromUrl = (url) => {
-  let getUrl = url.split('=');
-  let name = getUrl[1]; //
-  if(name == undefined) {
-  name = 'MarinaMix';
+  const getNameFromUrl = (url) => {
+    let getUrl = url.split('=');
+    let name = getUrl[1];
+    if(name == undefined) {
+    name = 'MarinaMix';
+    }
+  return name;
   }
-return name;
-}
 
-fetch(`https://api.github.com/users/${getNameFromUrl(url)}`)
+  const getDate = new Promise((resolve, reject) => {
+    setTimeout(() => date ? resolve(date) : reject('Ошибка'), 2000)
+  })
+
+  const getUrl = new Promise((resolve, reject) => {
+    setTimeout(() => url ? resolve(url) : reject('Ошибка'), 200)
+  })
+
+  Promise.all([getUrl, getDate])
+    .then(([url, date]) => fetch(`https://api.github.com/users/${getNameFromUrl(url)}`)
     .then(res => res.json())
     .then(json => {
 
@@ -34,6 +46,8 @@ fetch(`https://api.github.com/users/${getNameFromUrl(url)}`)
             bio.innerHTML = 'Информация недоступна';
         }
         body.append(bio);
+        body.append(date)
 
     })
     .catch(err => alert('Информация недоступна'));
+  }, 3000);
