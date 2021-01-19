@@ -14,11 +14,11 @@ window.setTimeout(function () {
   }
 
   const getDate = new Promise((resolve, reject) => {
-    setTimeout(() => date ? resolve(date) : reject('Ошибка'), 2000)
+    setTimeout(() => date ? resolve(date) : reject('Ошибка'), 4000)
   })
 
   const getUrl = new Promise((resolve, reject) => {
-    setTimeout(() => url ? resolve(url) : reject('Ошибка'), 200)
+    setTimeout(() => url ? resolve(url) : reject('Ошибка'), 4000)
   })
 
   Promise.all([getUrl, getDate])
@@ -49,5 +49,5 @@ window.setTimeout(function () {
         body.append(date)
 
     })
-    .catch(err => alert('Информация недоступна'));
+    .catch(err => alert('Информация недоступна')));
   }, 3000);
